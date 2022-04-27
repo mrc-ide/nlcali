@@ -12,10 +12,10 @@
 #' @examples
 nlcali <- function(parameters, target, target_tt,
                    ncores = 4,
-                   nsims = 1000) {
+                   nsims = 150) {
 
-
- test_EIRs <- rexp(nsims, rate = 1/60)
+ test_EIRs <- c(rexp(n = round(3 * nsims / 10), rate = 2),
+                rexp(n = round(7 * nsims / 10), rate = 1/50))
 
  sim_data <- run_simulations(parameters = parameters,
                              target = target,
@@ -33,5 +33,5 @@ nlcali <- function(parameters, target, target_tt,
 
  stan_out <- rstan::extract(stan_res)
 
- return(stan_out)
+ return(list(sims = sim_data, stan = stan_out, stan_dat = stan_dat))
 }

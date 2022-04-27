@@ -4,7 +4,7 @@
 \alias{nlcali}
 \title{Title}
 \usage{
-nlcali(parameters, target, target_tt, ncores = 4, nsims = 1000)
+nlcali(parameters, target, target_tt, ncores = 4, nsims = 600)
 }
 \arguments{
 \item{nsims}{}

@@ -30,6 +30,7 @@ create_stan_data <- function(sims, target){
   out$N_samp <- nrow(out$y)
  }else{
   out$N_samp <- 0
+  out$y <- matrix(nrow = 0, ncol = out$N_pred)
  }
 
  return(out)

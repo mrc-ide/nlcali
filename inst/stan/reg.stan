@@ -25,10 +25,11 @@ model {
 }
 
 generated quantities {
- vector[N_samp] prev_out = exp(logit(y) * beta + alpha);
  // vector[N_obs] log_lik;
  real pred = exp(normal_rng(logit(tar) * beta + alpha, sigma));
-
+ if(N_samp > 0){
+   vector[N_samp] prev_out = exp(logit(y) * beta + alpha);
+ }
  // for(j in 1:N_obs){
  //  log_lik[j] = normal_lpdf(y_raw[j] | x[j] * beta + alpha, sigma);
  // }

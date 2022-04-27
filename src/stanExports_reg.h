@@ -33,7 +33,7 @@ static int current_statement_begin__;
 stan::io::program_reader prog_reader__() {
     stan::io::program_reader reader;
     reader.add_event(0, 0, "start", "model_reg");
-    reader.add_event(38, 36, "end", "model_reg");
+    reader.add_event(39, 37, "end", "model_reg");
     return reader;
 }
 #include <stan_meta_header.hpp>
@@ -304,7 +304,6 @@ public:
         names__.push_back("sigma");
         names__.push_back("alpha");
         names__.push_back("beta");
-        names__.push_back("prev_out");
         names__.push_back("pred");
     }
     void get_dims(std::vector<std::vector<size_t> >& dimss__) const {
@@ -316,9 +315,6 @@ public:
         dimss__.push_back(dims__);
         dims__.resize(0);
         dims__.push_back(N_pred);
-        dimss__.push_back(dims__);
-        dims__.resize(0);
-        dims__.push_back(N_samp);
         dimss__.push_back(dims__);
         dims__.resize(0);
         dimss__.push_back(dims__);
@@ -356,25 +352,26 @@ public:
             if (!include_gqs__ && !include_tparams__) return;
             if (!include_gqs__) return;
             // declare and define generated quantities
-            current_statement_begin__ = 28;
-            validate_non_negative_index("prev_out", "N_samp", N_samp);
-            Eigen::Matrix<double, Eigen::Dynamic, 1> prev_out(N_samp);
-            stan::math::initialize(prev_out, DUMMY_VAR__);
-            stan::math::fill(prev_out, DUMMY_VAR__);
-            stan::math::assign(prev_out,stan::math::exp(add(multiply(logit(y), beta), alpha)));
-            current_statement_begin__ = 30;
+            current_statement_begin__ = 29;
             double pred;
             (void) pred;  // dummy to suppress unused var warning
             stan::math::initialize(pred, DUMMY_VAR__);
             stan::math::fill(pred, DUMMY_VAR__);
             stan::math::assign(pred,stan::math::exp(normal_rng((multiply(logit(tar), beta) + alpha), sigma, base_rng__)));
-            // validate, write generated quantities
-            current_statement_begin__ = 28;
-            size_t prev_out_j_1_max__ = N_samp;
-            for (size_t j_1__ = 0; j_1__ < prev_out_j_1_max__; ++j_1__) {
-                vars__.push_back(prev_out(j_1__));
-            }
+            // generated quantities statements
             current_statement_begin__ = 30;
+            if (as_bool(logical_gt(N_samp, 0))) {
+                {
+                current_statement_begin__ = 31;
+                validate_non_negative_index("prev_out", "N_samp", N_samp);
+                Eigen::Matrix<local_scalar_t__, Eigen::Dynamic, 1> prev_out(N_samp);
+                stan::math::initialize(prev_out, DUMMY_VAR__);
+                stan::math::fill(prev_out, DUMMY_VAR__);
+                stan::math::assign(prev_out,stan::math::exp(add(multiply(logit(y), beta), alpha)));
+                }
+            }
+            // validate, write generated quantities
+            current_statement_begin__ = 29;
             vars__.push_back(pred);
         } catch (const std::exception& e) {
             stan::lang::rethrow_located(e, current_statement_begin__, prog_reader__());
@@ -422,12 +419,6 @@ public:
         if (include_tparams__) {
         }
         if (!include_gqs__) return;
-        size_t prev_out_j_1_max__ = N_samp;
-        for (size_t j_1__ = 0; j_1__ < prev_out_j_1_max__; ++j_1__) {
-            param_name_stream__.str(std::string());
-            param_name_stream__ << "prev_out" << '.' << j_1__ + 1;
-            param_names__.push_back(param_name_stream__.str());
-        }
         param_name_stream__.str(std::string());
         param_name_stream__ << "pred";
         param_names__.push_back(param_name_stream__.str());
@@ -452,12 +443,6 @@ public:
         if (include_tparams__) {
         }
         if (!include_gqs__) return;
-        size_t prev_out_j_1_max__ = N_samp;
-        for (size_t j_1__ = 0; j_1__ < prev_out_j_1_max__; ++j_1__) {
-            param_name_stream__.str(std::string());
-            param_name_stream__ << "prev_out" << '.' << j_1__ + 1;
-            param_names__.push_back(param_name_stream__.str());
-        }
         param_name_stream__.str(std::string());
         param_name_stream__ << "pred";
         param_names__.push_back(param_name_stream__.str());

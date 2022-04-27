@@ -25,14 +25,10 @@ run_simulations <- function(parameters, target, target_tt, test_EIRs, ncores) {
  print(paste0("Cluster registered: ", foreach::getDoParRegistered()))
  print(paste0("Simulating from ", foreach::getDoParWorkers(), " cores"))
 
- summary_function <- function(ret) {
-  res <- (ret$n_detect_730_3650 / ret$n_730_3650)[target_tt]
- }
-
  run_func <- function(x){
   p <- malariasimulation::set_equilibrium(parameters, init_EIR = x)
   raw_output <- malariasimulation::run_simulation(timesteps = max(target_tt), parameters = p)
-  out <- summary_function(raw_output)
+  out <- cali::summary_pfpr_2_10(raw_output)[target_tt]
   return(out)
  }
 

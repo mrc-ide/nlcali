@@ -7,7 +7,7 @@
 #'
 #' @return
 #' @importFrom data.table data.table
-#' @importFrom ggplot2 ggplot geom_tile labs scale_x_continuous scale_y_continuous
+#' @importFrom ggplot2 ggplot aes geom_tile labs scale_x_continuous scale_y_continuous
 #' @importFrom viridis scale_fill_viridis
 #' @export
 #'
@@ -30,6 +30,18 @@ plot_res_3d <- function(out, data, test_EIRs){
  return(p)
 }
 
+#' Title
+#'
+#' @param stan_samples
+#' @param sim_samples
+#' @param stan_data
+#'
+#' @return
+#' @importFrom data.table data.table
+#' @importFrom ggplot2 ggplot geom_ribbon aes geom_point geom_line labs scale_x_continuous theme_bw
+#' @export
+#'
+#' @examples
 plot_res_2d <- function(stan_samples, sim_samples, stan_data){
 
  plot_data <- data.table::data.table(med = apply(stan_samples$prev_out, 2, median),
