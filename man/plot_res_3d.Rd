@@ -2,16 +2,16 @@
 % Please edit documentation in R/plot_output.R
 \name{plot_res_3d}
 \alias{plot_res_3d}
-\title{Title}
+\title{Plot model fit with 2 observations}
 \usage{
 plot_res_3d(output)
 }
 \arguments{
-\item{test_EIRs}{}
+\item{output}{}
 }
 \value{
 
 }
 \description{
-Title
+Plot model fit with 2 observations
 }

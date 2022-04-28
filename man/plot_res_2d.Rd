@@ -2,16 +2,16 @@
 % Please edit documentation in R/plot_output.R
 \name{plot_res_2d}
 \alias{plot_res_2d}
-\title{Title}
+\title{Plot model fit with 1 baseline observation}
 \usage{
 plot_res_2d(output)
 }
 \arguments{
-\item{stan_data}{}
+\item{output}{}
 }
 \value{
 
 }
 \description{
-Title
+Plot model fit with 1 baseline observation
 }

@@ -25,5 +25,6 @@ nlcali <- function(parameters, target, target_tt,
  mod_res <- nlcali::fit_spline(sim_data = sim_data,
                                target = target)
 
- return(list(sims = sim_data, eir_pred = mod_res$pred, fit = mod_res$spline, mod = mod_res$mod))
+ return(list(sims = sim_data, eir_pred = mod_res$pred, fit = mod_res$spline, mod = mod_res$mod,
+             target = target, target_tt = target_tt))
 }
