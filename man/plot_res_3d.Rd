@@ -4,7 +4,7 @@
 \alias{plot_res_3d}
 \title{Title}
 \usage{
-plot_res_3d(out, data, test_EIRs)
+plot_res_3d(output)
 }
 \arguments{
 \item{test_EIRs}{}

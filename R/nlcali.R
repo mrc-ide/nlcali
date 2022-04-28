@@ -11,27 +11,19 @@
 #'
 #' @examples
 nlcali <- function(parameters, target, target_tt,
-                   ncores = 4,
+                   ncores = 1,
                    nsims = 150) {
 
- test_EIRs <- c(rexp(n = round(3 * nsims / 10), rate = 2),
-                rexp(n = round(7 * nsims / 10), rate = 1/50))
+ test_EIRs <- exp(seq(-3, 6, length.out = nsims))
 
- sim_data <- run_simulations(parameters = parameters,
+ sim_data <- nlcali::run_simulations(parameters = parameters,
                              target = target,
                              target_tt = target_tt,
                              ncores = ncores,
                              test_EIRs = test_EIRs)
 
+ mod_res <- nlcali::fit_spline(sim_data = sim_data,
+                               target = target)
 
- stan_dat <- create_stan_data(sims = sim_data,
-                              target = target)
-
-
- stan_res <- fit_stan(data = stan_dat,
-                      cores = ncores)
-
- stan_out <- rstan::extract(stan_res)
-
- return(list(sims = sim_data, stan = stan_out, stan_dat = stan_dat))
+ return(list(sims = sim_data, eir_pred = mod_res$pred, fit = mod_res$spline, mod = mod_res$mod))
 }

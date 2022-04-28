@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_simulations.R
 \name{run_simulations}
 \alias{run_simulations}
-\title{Title}
+\title{Run simulations for a range of starting_EIR values}
 \usage{
 run_simulations(parameters, target, target_tt, test_EIRs, ncores)
 }
@@ -10,5 +10,5 @@ run_simulations(parameters, target, target_tt, test_EIRs, ncores)
 
 }
 \description{
-Title
+Run simulations for a range of starting_EIR values
 }

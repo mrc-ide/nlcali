@@ -4,7 +4,7 @@
 \alias{plot_res_2d}
 \title{Title}
 \usage{
-plot_res_2d(stan_samples, sim_samples, stan_data)
+plot_res_2d(output)
 }
 \arguments{
 \item{stan_data}{}

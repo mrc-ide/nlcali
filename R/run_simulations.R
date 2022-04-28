@@ -1,5 +1,4 @@
-
-#' Title
+#' Run simulations for a range of starting_EIR values
 #'
 #' @return
 #' @importFrom parallel detectCores makeCluster
@@ -7,13 +6,13 @@
 #' @importFrom foreach getDoParRegistered foreach %dopar%
 #' @importFrom data.table data.table rbindlist
 #' @importFrom malariasimulation set_equilibrium run_simulation
+#' @importFrom cali summary_pfpr_2_10
 #' @export
 #'
 #' @examples
 run_simulations <- function(parameters, target, target_tt, test_EIRs, ncores) {
 
  print("Setting up cores for simulation runs")
- # n.cores <- parallel::detectCores() - 1
  my.cluster <- parallel::makeCluster(
   ncores,
   type = "PSOCK"
